@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { map, first } from 'rxjs/operators'
 import { of, Observable, from } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { MessagingService } from './messaging.service';
 
 
 @Injectable({
@@ -15,7 +17,8 @@ export class AuthenticationService {
 
   constructor(
     private router: Router,
-    private httpClient : HttpClient
+    private httpClient : HttpClient,
+    private messagingService: MessagingService,
     
   ) {
     const savedUserDetails = sessionStorage.getItem(this.sessionKey);
@@ -24,54 +27,29 @@ export class AuthenticationService {
     }
   }
 
- /*  login(loginDetails:any) :Observable<any>{
- 
-
-    return from(this.firestore
-      .collection<any>(
-          'users', 
-          ref => ref
-            .where('email', '==', loginDetails.username)
-            .where('password', '==', loginDetails.password)
-      )
-      .valueChanges()
-      .pipe(
-        map(
-          userData => {
-            if(userData === undefined) {
-              return null;
-            }
-            let userDataToBeStored = {
-              ...userData[0],
-              password: ''
-            }
-            this.setUserDetails(userDataToBeStored)
-            return userDataToBeStored;
-          }
-        )
-      )
-
-   
-      )
+ login(loginDetails:any) :Observable<any>{
+  const loginPath ="login"
+  const endpoint = environment.userAuthPrefixUri + loginPath;
   
-  } */
+  console.log("postDataDef",loginDetails)
+  return this.httpClient.post(endpoint,loginDetails);
+  
+  } 
 
- /* register(registerDetails:any): Observable<any> {
-    
-  const endpoint = environment.swaggerUrlPrefix + "saveComponentDataDef/";
-  const data_def ={
-    "data_def" : dataDef,
-    "validations" : validations
-  }
-  console.log("postDataDef",data_def)
-  return this.httpClient.post(endpoint,data_def);
+  register(registerDetails:any): Observable<any> {
+  const registrationPath ="register"
+  const endpoint = environment.userAuthPrefixUri + registrationPath;
+  
+  console.log("postDataDef",registerDetails)
+  return this.httpClient.post(endpoint,registerDetails);
 
      
-  }  */
+  }  
 
   logout() {
     const user = null;
-    //this.setUserDetails(user);
+    this.messagingService.sendUserDetails({});
+    this.setUserDetails(user);
     sessionStorage.removeItem(this.sessionKey);
     this.router.navigate(['/']);
   }
@@ -88,12 +66,15 @@ export class AuthenticationService {
     return  this._userDetails ; 
   }
 
-/*   private setUserDetails(details) {
+  setUserDetails(details: any) {
     this._userDetails = details;
     sessionStorage.setItem(this.sessionKey, JSON.stringify(details))
   }
 
- 
+  sendToMessaging(details: any) {
+    this.messagingService.sendUserDetails(details);
+  }
+ /* 
   updateUserUploads(userFile){
     const userDetails = this.getUserDetails();
     this.setUserDetails({

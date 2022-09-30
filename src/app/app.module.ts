@@ -11,7 +11,7 @@ import { HttpClientModule , HttpClient, HttpHeaders } from '@angular/common/http
 import { HeaderComponent } from './shell/header/header.component';
 import { FooterComponent } from './shell/footer/footer.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './services/register/register.component';
+import { RegisterComponent } from './register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
