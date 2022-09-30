@@ -1,9 +1,7 @@
-<nav>
-  <ul>
-    <li><a routerLink="/add-album" routerLinkActive="active" ariaCurrentWhenActive="page">Create Album</a></li>
-    <li><a routerLink="/view-album" routerLinkActive="active" ariaCurrentWhenActive="page">View Album</a></li>
-  </ul>
-</nav>
-
-
 <router-outlet></router-outlet>
+
+<app-header></app-header>
+<div id="app-container" style="min-height: 400px;">  
+  <router-outlet></router-outlet>
+</div>
+<app-footer></app-footer>

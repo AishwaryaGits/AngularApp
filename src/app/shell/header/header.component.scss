@@ -1,0 +1,41 @@
+nav {
+    height: 100px;
+    background-color: #171a35;
+}
+
+.csp-logo {
+    font-family: Lobster;
+    font-size: 27px;
+}
+#navbarSupportedContent {
+    background-color: rgb(23, 26, 53);
+    margin-left: -15px;
+    padding: 15px;
+    margin-right: -16px;
+    z-index: 30;
+}
+
+.csp-header-search {
+    height: 30px;
+    margin-top: 5px;
+}
+
+.nav-link {
+    cursor: pointer;
+}
+
+.userNameText {
+    color: white;
+    margin: 5px 16px 16px 16px;
+    width: -webkit-max-content;
+    width: -moz-max-content;
+    width: max-content;
+    font-family: Lobsters;
+    font-size: 20px;
+}
+
+@media screen and (max-width: 991px) {
+    .userNameText {
+        margin: 16px 16px 16px 0px;
+    }
+}

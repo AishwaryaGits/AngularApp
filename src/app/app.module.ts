@@ -8,11 +8,19 @@ import { CreateAlbumComponent } from './create-album/create-album.component';
 import { ViewAlbumComponent } from './view-album/view-album.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule , HttpClient, HttpHeaders } from '@angular/common/http';
+import { HeaderComponent } from './shell/header/header.component';
+import { FooterComponent } from './shell/footer/footer.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './services/register/register.component';
 @NgModule({
   declarations: [
     AppComponent,
     CreateAlbumComponent,
-    ViewAlbumComponent
+    ViewAlbumComponent,
+    HeaderComponent,
+    FooterComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,
