@@ -1,0 +1,34 @@
+<div ng-app="myApp" ng-controller="myController" class="container">
+    <form name="myForm">
+      <div class="login-container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+                <span>
+                    <label>Name</label>
+                </span>
+                <span>
+                    <input type="name" name="name" [(ngModel)]="name" required class="form-control">
+                </span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+                <span>
+                    <label>Description</label>
+                </span>
+                <span>
+                    <input type="text" name="description" [(ngModel)]="description" required class="form-control">
+                </span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-group">
+              <button (click)="submitForm()" ng-disabled="myForm.$invalid" class="btn btn-success pull-right">Submit</button>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
