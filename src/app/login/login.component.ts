@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
       this.loginForm = this.formBuilder.group({
-          username: ['', [Validators.required, Validators.email]],
+          userEmail: ['', [Validators.required, Validators.email]],
           password: ['', [Validators.required, Validators.minLength(6)]]
       });
   }
@@ -37,16 +37,29 @@ export class LoginComponent implements OnInit {
 
       console.log(this.loginForm.value)
       
-      /* this.authenticationService.login(this.loginForm.value)
+      this.authenticationService.login(this.loginForm.value)
       .subscribe(
         userDetails => {
           if(userDetails) {
-            this.router.navigate(['/'], { replaceUrl: true});
+            
+            let jsonData=JSON.parse(userDetails)
+            if(jsonData.status === 200){
+              let userDataToBeStored = {
+                ...userDetails[0],
+                password: ''
+              }
+              this.authenticationService.sendToMessaging(userDataToBeStored)
+              this.authenticationService.setUserDetails(userDataToBeStored)
+              this.router.navigate(['/'], { replaceUrl: true});
+            }else{
+              alert(jsonData.message)
+            }
+            
           } else {
             alert('Wrong username and password details entered!')
           }
         }
-      ) */
+      ) 
   }
 }
 

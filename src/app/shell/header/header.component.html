@@ -7,23 +7,13 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-           
-            <li class="nav-item active">
+            <li class="nav-item active" *ngIf="isUserAuthenticated();">
                 <a class="nav-link" routerLink="/add-album" routerLinkActive="active">Create Album </a>
             </li>
-            <li class="nav-item active">
+            <li class="nav-item active" *ngIf="isUserAuthenticated();">
                 <a class="nav-link" routerLink="/view-album" routerLinkActive="active">View Album</a>
             </li>
           
-            <li calass="nav-item" *ngIf="isUserAuthenticated();">
-                <a class="nav-link" routerLink="userSubscriptions/">Subscriptions</a>
-            </li>
-            <li calass="nav-item" *ngIf="isUserAuthenticated();">
-                <a class="nav-link" routerLink="images/list">Gallery</a>
-            </li>
         </ul>
         <ul class="navbar-nav ">
             <input class="form-control csp-header-search" type="text" placeholder="Search" aria-label="Search">
@@ -49,7 +39,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" routerLink="register/">SignUp</a>
+                    <a class="nav-link" routerLink="/register">SignUp</a>
                 </li>
 
             </ng-template>

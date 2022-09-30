@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
+      userEmail: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
     });
   }
@@ -34,13 +34,20 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-   /*  this.authenticationService.register(this.registerForm.value)
+    this.authenticationService.register(this.registerForm.value)
       .subscribe(
         (data: any) => {
+          let jsonData=JSON.parse(data)
+          if(jsonData.status === 201){
           alert('Registration is successful. Please login!')
           this.router.navigate(['/login'], { replaceUrl: true });
+          }else{
+            alert(jsonData.message)
+            this.router.navigate(['/register'], { replaceUrl: true });
+          }
+          
         }
-      ) */
+      ) 
 
   }
 }

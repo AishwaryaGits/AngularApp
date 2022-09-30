@@ -1,7 +1,7 @@
 #app-container::after {
     content: "";
     background: url("../assets/images/backgroundImg.jpg");
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-size: cover;
     opacity: 0.5;
     top: 0;

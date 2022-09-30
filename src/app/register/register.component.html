@@ -20,10 +20,10 @@
                     </div>
                     <div class="form-group">
                         <label>Email</label>
-                        <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls['email'].errors }" />
-                        <div *ngIf="submitted &amp;&amp; registerForm.controls['email'].errors" class="text-danger">
-                            <div *ngIf="registerForm.controls['email'].errors?.['required']">Email is required</div>
-                            <div *ngIf="registerForm.controls['email'].errors?.['email']">Email must be a valid email address</div>
+                        <input type="text" formControlName="userEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted &amp;&amp; registerForm.controls['userEmail'].errors }" />
+                        <div *ngIf="submitted &amp;&amp; registerForm.controls['userEmail'].errors" class="text-danger">
+                            <div *ngIf="registerForm.controls['userEmail'].errors?.['required']">Email is required</div>
+                            <div *ngIf="registerForm.controls['userEmail'].errors?.['email']">Email must be a valid email address</div>
                         </div>
                     </div>
                     <div class="form-group">
