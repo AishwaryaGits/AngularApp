@@ -1,81 +1,65 @@
-import { Component, OnInit } from '@angular/core';
-import { ImageServiceService } from '../services/imageUpload/image-service.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTable } from '@angular/material/table';
+import { Router } from '@angular/router';
 
-class ImageSnippet {
-  pending: boolean = false;
-  status: string = 'init';
 
-  constructor(public src: string, public file: File) {}
+export interface PeriodicElement {
+  id:number,
+  albumName: string,
+  albumDesc: string;
 }
+
+const ELEMENT_DATA: PeriodicElement[] = [
+  {id: 1, albumName: 'Hydrogen', albumDesc: "Beaches"},
+  {id: 2, albumName: 'Helium', albumDesc: "Beaches"},
+  {id: 3, albumName: 'Lithium', albumDesc: "Beaches"},
+  {id: 4, albumName: 'Beryllium', albumDesc: "Beaches"},
+  {id: 5, albumName: 'Boron', albumDesc: "Beaches"},
+  {id: 6, albumName: 'Carbon', albumDesc: "Beaches"},
+  {id: 7, albumName: 'Nitrogen', albumDesc: "Beaches"},
+  {id: 8, albumName: 'Oxygen', albumDesc: "Beaches"},
+  {id: 9, albumName: 'Fluorine', albumDesc: "Beaches"},
+  {id: 10, albumName: 'Neon', albumDesc: "Beaches"},
+];
 
 @Component({
   selector: 'app-view-album',
   templateUrl: './view-album.component.html',
   styleUrls: ['./view-album.component.scss']
 })
+
+
 export class ViewAlbumComponent implements OnInit {
 
-  selectedFile: any ;
-  imageUploadStatus : boolean = false;
-
-  imageArray : any[]=[];
-
-  constructor(private imageService : ImageServiceService) { }
-
+  displayedColumns: string[] = ['id', 'albumName', 'albumDesc','deleteAlbum'];
+  dataSource : any;
   ngOnInit(): void {
-    this.imageArray = [
-    {
-      "key" : "Aniket"
-    },
-    {
-      "key" : "Rahul"
-    },
-    {
-      "key" : "Aishwarya"
-    },
-    {
-      "key" : "Brahmecha"
-    },
-    {
-      "key" : "Dalvi"
-    },   
-  ]
-  }
-
-  onClickButton(){
-    this.imageUploadStatus =true;
-  }
-
-  private onSuccess() {
-    this.selectedFile.pending = false;
-    this.selectedFile.status = 'ok';
-  }
-
-  private onError() {
-    this.selectedFile.pending = false;
-    this.selectedFile.status = 'fail';
-    this.selectedFile.src = '';
-  }
-
-  processFile(imageInput: any) {
-    const file: File = imageInput.files[0];
-    const reader = new FileReader();
-
-    reader.addEventListener('load', (event: any) => {
-
-      this.selectedFile = new ImageSnippet(event.target.result, file);
-
-      this.imageService.uploadImage(this.selectedFile.file).subscribe(
-        (res:any) => {
-          this.onSuccess();
-        },
-        (err:any) => {
-          this.onError();
-        })
-    });
-
-    reader.readAsDataURL(file);
+    this.dataSource = [...ELEMENT_DATA];
   }
   
+  constructor(private router: Router){
+
+  }
+  @ViewChild(MatTable) table: any;
+
+  addData() {
+    const randomElementIndex = Math.floor(Math.random() * ELEMENT_DATA.length);
+    this.dataSource.push(ELEMENT_DATA[randomElementIndex]);
+    this.table.renderRows();
+  }
+
+  deleteData(value : any){
+    console.log("values",value)
+  }
+
+  goToPage(pageName:string){
+    this.router.navigate([`${pageName}`]);
+  }
+
+  viewPhotos(element:any){
+    console.log("element",element)
+    // this.router.navigate([`${element.albumname}`]);
+    this.router.navigate([`${'/view-photo'}`]);
+  }
 
 }

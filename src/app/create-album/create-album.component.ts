@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { CreateAlbumServiceService } from '../services/create-album-service.service';
 @Component({
   selector: 'app-create-album',
@@ -10,7 +11,7 @@ export class CreateAlbumComponent implements OnInit {
   form: any;
   name : string = "";
   description : string = "";
-  constructor(private createAlbumService : CreateAlbumServiceService) { }
+  constructor(private createAlbumService : CreateAlbumServiceService,private router : Router) { }
 
   ngOnInit(): void {
   }
@@ -18,10 +19,11 @@ export class CreateAlbumComponent implements OnInit {
   submitForm() {
      this.createAlbumService.createAlbum(this.name,this.description).subscribe(
       (res:any) => {
-        console.log("success",res)
+        this.router.navigate([`${'/view-album'}`]);
       },
       (err:any) => {
         console.log("failure",err)
+        this.router.navigate([`${'/view-album'}`]);
       });
   }
 
