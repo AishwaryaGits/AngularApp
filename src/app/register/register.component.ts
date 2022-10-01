@@ -37,12 +37,12 @@ export class RegisterComponent implements OnInit {
     this.authenticationService.register(this.registerForm.value)
       .subscribe(
         (data: any) => {
-          let jsonData=JSON.parse(data)
-          if(jsonData.status === 201){
+          
+          if(data.status === 201){
           alert('Registration is successful. Please login!')
           this.router.navigate(['/login'], { replaceUrl: true });
           }else{
-            alert(jsonData.message)
+            alert(data.message)
             this.router.navigate(['/register'], { replaceUrl: true });
           }
           

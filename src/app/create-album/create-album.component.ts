@@ -16,7 +16,13 @@ export class CreateAlbumComponent implements OnInit {
   }
 
   submitForm() {
-     this.createAlbumService.createAlbum(this.name,this.description);
+     this.createAlbumService.createAlbum(this.name,this.description).subscribe(
+      (res:any) => {
+        console.log("success",res)
+      },
+      (err:any) => {
+        console.log("failure",err)
+      });
   }
 
 }

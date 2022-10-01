@@ -42,17 +42,17 @@ export class LoginComponent implements OnInit {
         userDetails => {
           if(userDetails) {
             
-            let jsonData=JSON.parse(userDetails)
-            if(jsonData.status === 200){
+            //let jsonData=JSON.parse(userDetails)
+            if(userDetails.status === 200){
               let userDataToBeStored = {
-                ...userDetails[0],
+                ...userDetails.data.data,
                 password: ''
               }
               this.authenticationService.sendToMessaging(userDataToBeStored)
               this.authenticationService.setUserDetails(userDataToBeStored)
-              this.router.navigate(['/'], { replaceUrl: true});
+              this.router.navigate(['/view-album'], { replaceUrl: true});
             }else{
-              alert(jsonData.message)
+              alert(userDetails.message)
             }
             
           } else {

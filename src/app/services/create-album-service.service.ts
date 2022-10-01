@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient} from '@angular/common/http';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,10 @@ export class CreateAlbumServiceService {
       albumName : name,
       albumDesc : description
     }
-    const endpoint = 'http://localhost:8000/imgService/createAlbum';
+    
+    const createAlbum ="createAlbum"
+    const endpoint = environment.imageServicePrefixUri + createAlbum;
+  
     return this.http.post(endpoint, data);
   }
   
