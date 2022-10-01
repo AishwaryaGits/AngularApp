@@ -7,6 +7,22 @@ import { environment } from 'src/environments/environment';
 })
 export class ImageServiceService {
 
+
+  fetchAllImages(albumName : string) : Observable<any>{
+
+    const endpoint = '/fetchAllImage';
+    return this.http.post(endpoint, albumName);
+  }
+
+  deleteImage(albumName : string,key: string) :Observable<any> {
+    let data = {
+      albumName : albumName,
+      key : key
+    }
+    const endpoint = '/deleteImage';
+    return this.http.post(endpoint, data);
+  }
+
   constructor(private http: HttpClient) {}
 
 

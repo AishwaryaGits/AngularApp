@@ -1,40 +1,35 @@
-
 <div class="container" style="margin : 60px;margin-left: 160px;">
-    <Button class="btn btn-primary" (click)="onClickButton()">Add Image</Button>
-  <div *ngIf="imageUploadStatus">
-    <label class="image-upload-container btn btn-bwm">
-        <span>Select Image</span>
-        <input #imageInput
-               type="file"
-               accept="image/*"
-               (change)="processFile(imageInput)"
-               >
-      </label>
-  </div>
-
-  <div *ngIf="selectedFile" class="img-preview-container">
-
-    <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
-         [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+    <span><h1 style="border-color: 100px;margin-left: 50px;">{{albumName}}</h1></span>
+    <span><Button class="btn btn-primary"  style="margin-left: 50px;"  (click)="onClickButton()">Add Image</Button></span>
+    <div>
+        <div *ngIf="imageUploadStatus">
+            <label class="image-upload-container btn btn-bwm">
+                <span style="margin-left: 50px;">Select Image</span>
+                <input #imageInput type="file" accept="image/*" (change)="processFile(imageInput)">
+            </label>
+        </div>
     </div>
-  
-    <div *ngIf="selectedFile.pending" class="img-loading-overlay">
-      <div class="img-spinning-circle"></div>
-    </div>
-  
-    <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
-    <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
-  </div>
 
-  <div class="example-container">
-    <div
-      *ngFor="let item of imageArray"
-    >
-      <div class="example-box">
-        {{ item.key }}
-      </div>
+    <div *ngIf="selectedFile" class="img-preview-container">
+
+        <div class="img-preview{{selectedFile.status === 'fail' ? '-error' : ''}}"
+            [ngStyle]="{'background-image': 'url('+ selectedFile.src + ')'}">
+        </div>
+
+        <div *ngIf="selectedFile.pending" class="img-loading-overlay">
+            <div class="img-spinning-circle"></div>
+        </div>
+
+        <div *ngIf="selectedFile.status === 'ok'" class="alert alert-success"> Image Uploaded Succesfuly!</div>
+        <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
     </div>
-  </div>
+
+    <mat-grid-list cols="4"  style="margin: 50px;">
+    <div *ngFor="let item of imageArray"  style="margin-left: 100px; width: 500px;padding-left: 20px;">
+        
+            <mat-grid-tile  style="padding-left: 20px;"> {{ item.key }}</mat-grid-tile>
+         
+    </div>
+</mat-grid-list>
 
 </div>
-

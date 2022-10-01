@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataProviderService } from '../services/data-provider.service';
 import { ImageServiceService } from '../services/imageUpload/image-service.service';
 
 class ImageSnippet {
@@ -20,7 +21,9 @@ export class ViewPhotosComponent implements OnInit {
 
   imageArray : any[]=[];
 
-  constructor(private imageService : ImageServiceService) { }
+  constructor(private imageService : ImageServiceService,private dataProvider : DataProviderService) { }
+
+  albumName : string = '';
 
   ngOnInit(): void {
     this.imageArray = [
@@ -40,6 +43,15 @@ export class ViewPhotosComponent implements OnInit {
       "key" : "Dalvi"
     },   
   ]
+  this.dataProvider.dataObs$.subscribe(data => {
+    if (data) {
+      this.albumName = data;
+      this.fetchAllPhotos();
+    }
+  }, error => {
+    console.log("error",error)
+  });
+  
   }
 
   onClickButton(){
@@ -77,5 +89,25 @@ export class ViewPhotosComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+  fetchAllPhotos(){
+    this.imageService.fetchAllImages(this.albumName).subscribe(
+      (res:any) => {
+        this.onSuccess();
+        this.imageArray = res.data.data;
+      },
+      (err:any) => {
+        this.onError();
+      })
+  };
+
+  deletePhoto(element : any){
+    this.imageService.deleteImage(this.albumName ,element.key).subscribe(
+      (res:any)=>{
+        this.fetchAllPhotos();
+      },(err:any)=>{
+
+      }
+    )
+  }
 
 }
