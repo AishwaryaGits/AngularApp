@@ -29,7 +29,7 @@
         
             
         <div style="width: 100%; height: 100%">
-            <mat-grid-tile ><img  style="display:block; height: inherit !important" src={{item.base64Image}} layout-fill/>
+            <mat-grid-tile ><img  style="display:block; height: inherit !important" (click)="enlargePhoto(item)" src={{item.base64Image}} layout-fill/>
                 <mat-grid-tile-footer>{{item.imageFileName}}
 
                     <button mat-icon-button color="primary"  (click)="deleteImage(item.id)" style="margin-left: 150px;" aria-label="Example icon button with a home icon">

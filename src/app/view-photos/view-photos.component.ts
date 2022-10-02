@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { DataProviderService } from '../services/data-provider.service';
 import { ImageServiceService } from '../services/imageUpload/image-service.service';
 
@@ -21,7 +22,7 @@ export class ViewPhotosComponent implements OnInit {
 
   imageArray : any[]=[];
 
-  constructor(private imageService : ImageServiceService,private dataProvider : DataProviderService) { }
+  constructor(private imageService : ImageServiceService,private dataProvider : DataProviderService,private router : Router) { }
 
   albumDetails : any;
 
@@ -96,6 +97,12 @@ export class ViewPhotosComponent implements OnInit {
 
       }
     )
+  }
+
+  enlargePhoto(imageDetails : any){
+    this.dataProvider.setImageData(imageDetails);
+    this.router.navigate([`${'/enlarge-photo'}`]);
+
   }
 
 }

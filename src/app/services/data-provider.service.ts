@@ -16,6 +16,11 @@ export class DataProviderService {
     this.data$.next(value);
   }
 
+  private imageData$ = new BehaviorSubject<any>(null); 
+  imageDataObs$ = this.imageData$.asObservable();
+  setImageData(value : any) : void {
+    this.imageData$.next(value);
+  }
  
 
 

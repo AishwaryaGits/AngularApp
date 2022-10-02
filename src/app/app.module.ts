@@ -19,6 +19,7 @@ import { ViewPhotosComponent } from './view-photos/view-photos.component';
 import {MatTableModule} from '@angular/material/table';
 import {MatIconModule} from '@angular/material/icon';
 import {MatGridListModule} from '@angular/material/grid-list';
+import { EnlargePhotoComponent } from './enlarge-photo/enlarge-photo.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MatGridListModule} from '@angular/material/grid-list';
     FooterComponent,
     LoginComponent,
     RegisterComponent,
-    ViewPhotosComponent
+    ViewPhotosComponent,
+    EnlargePhotoComponent
   ],
   imports: [
     BrowserModule,
