@@ -15,7 +15,9 @@ export class EnlargePhotoComponent implements OnInit {
 
   ngOnInit(): void {
     this.dataProvider.imageDataObs$.subscribe((res:any)=>{
-      this.imageDetails = this.imageDetails
+      
+      this.imageDetails = res
+      console.log(this.imageDetails.base64Image)
     },(err:any)=>{
 
     })
