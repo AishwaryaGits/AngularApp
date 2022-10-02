@@ -22,13 +22,11 @@ export class CreateAlbumServiceService {
     return this.http.post(endpoint, data);
   }
   
-  deleteAlbum(id : string) : Observable<any> {
-    let data = {
-      id : id
-    }
-    const endpoint = 'environment.imageServicePrefixUri + createAlbum';
+  deleteAlbum(albumId: string) : Observable<any> {
+    const DELETE_ALBUM ="deleteAlbum/"
+    const endpoint = environment.imageServicePrefixUri+ DELETE_ALBUM+albumId;
   
-    return this.http.post(endpoint, data);
+    return this.http.delete(endpoint);
   }
 
 

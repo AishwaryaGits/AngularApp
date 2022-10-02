@@ -12,8 +12,11 @@ export class DataProviderService {
   private data$ = new BehaviorSubject<any>(null); 
   dataObs$ = this.data$.asObservable();
   setData(value : any) : void {
+    console.log(value);
     this.data$.next(value);
   }
+
+ 
 
 
 }

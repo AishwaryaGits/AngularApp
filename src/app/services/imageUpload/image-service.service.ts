@@ -8,32 +8,30 @@ import { environment } from 'src/environments/environment';
 export class ImageServiceService {
 
 
-  fetchAllImages(albumName : string) : Observable<any>{
-
-    const endpoint = '/fetchAllImage';
-    return this.http.post(endpoint, albumName);
+  fetchAllImages(albumId : string) : Observable<any>{
+    const FETCH_ALBUM_IMGS ="getAlbumImgs/"
+    const endpoint = environment.imageServicePrefixUri+ FETCH_ALBUM_IMGS+albumId;
+    return this.http.get(endpoint);
   }
 
-  deleteImage(albumName : string,key: string) :Observable<any> {
-    let data = {
-      albumName : albumName,
-      key : key
-    }
-    const endpoint = '/deleteImage';
-    return this.http.post(endpoint, data);
+  deleteImage(imageId : any) :Observable<any> {
+    console.log(imageId)
+    const DELETE_IMG ="deleteImg/"
+    const endpoint = environment.imageServicePrefixUri+ DELETE_IMG+imageId;
+    return this.http.delete(endpoint);
   }
 
   constructor(private http: HttpClient) {}
 
 
-  public uploadImage(image: File): Observable<any> {
-    const uploadImagePath ="uploadImg"
-    const endpoint = environment.userAuthPrefixUri + uploadImagePath;
+  public uploadImage(image: File,albumName:string,albumId:string): Observable<any> {
+    console.log(albumName+ "  "+ albumId)
+    const uploadImagePath ="addImg"
+    const endpoint = environment.imageServicePrefixUri + uploadImagePath;
     const formData = new FormData();
-    let data :{
-      "albumName":"Yashi"
-    }
-    formData.append('albumName',"Yashi")
+    
+    formData.append('albumName',albumName)
+    formData.append('albumId',albumId)
     formData.append('image', image);
     console.log("form",formData,image,typeof(image))
     return this.http.post(endpoint, formData);

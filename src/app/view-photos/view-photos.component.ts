@@ -23,29 +23,14 @@ export class ViewPhotosComponent implements OnInit {
 
   constructor(private imageService : ImageServiceService,private dataProvider : DataProviderService) { }
 
-  albumName : string = '';
+  albumDetails : any;
 
   ngOnInit(): void {
-    this.imageArray = [
-    {
-      "key" : "Aniket"
-    },
-    {
-      "key" : "Rahul"
-    },
-    {
-      "key" : "Aishwarya"
-    },
-    {
-      "key" : "Brahmecha"
-    },
-    {
-      "key" : "Dalvi"
-    },   
-  ]
+
   this.dataProvider.dataObs$.subscribe(data => {
     if (data) {
-      this.albumName = data;
+      console.log(data)
+      this.albumDetails = data;
       this.fetchAllPhotos();
     }
   }, error => {
@@ -77,9 +62,11 @@ export class ViewPhotosComponent implements OnInit {
 
       this.selectedFile = new ImageSnippet(event.target.result, file);
 
-      this.imageService.uploadImage(this.selectedFile.file).subscribe(
+      this.imageService.uploadImage(this.selectedFile.file,this.albumDetails.albumName,this.albumDetails.albumId).subscribe(
         (res:any) => {
+
           this.onSuccess();
+          this.fetchAllPhotos();
         },
         (err:any) => {
           this.onError();
@@ -90,18 +77,19 @@ export class ViewPhotosComponent implements OnInit {
   }
 
   fetchAllPhotos(){
-    this.imageService.fetchAllImages(this.albumName).subscribe(
+    this.imageService.fetchAllImages(this.albumDetails.albumId).subscribe(
       (res:any) => {
-        this.onSuccess();
         this.imageArray = res.data.data;
+        console.log(this.imageArray)
       },
       (err:any) => {
-        this.onError();
+  
       })
   };
 
-  deletePhoto(element : any){
-    this.imageService.deleteImage(this.albumName ,element.key).subscribe(
+  deleteImage(imageId : any){
+  
+    this.imageService.deleteImage(imageId).subscribe(
       (res:any)=>{
         this.fetchAllPhotos();
       },(err:any)=>{

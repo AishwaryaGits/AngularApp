@@ -20,13 +20,16 @@ export class CreateAlbumComponent implements OnInit {
   submitForm() {
      this.createAlbumService.createAlbum(this.name,this.description).subscribe(
       (res:any) => {
-        this.dataProvider.setData(res.albumName);
-        this.router.navigate([`${'/view-album'}`]);
+        let response={
+          "albumName": this.name,
+          "albumDesc": this.description,
+          "albumId" : res.data.data.InsertedID
+        }
+        this.dataProvider.setData(response);
+        this.router.navigate([`${'/view-photo'}`]);
       },
       (err:any) => {
         console.log("failure",err)
-        this.dataProvider.setData(this.name);
-        this.router.navigate([`${'/view-photo'}`]);
       });
   }
 

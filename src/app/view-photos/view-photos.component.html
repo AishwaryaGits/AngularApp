@@ -1,5 +1,5 @@
 <div class="container" style="margin : 60px;margin-left: 160px;">
-    <span><h1 style="border-color: 100px;margin-left: 50px;">{{albumName}}</h1></span>
+    <span><h1 style="border-color: 100px;margin-left: 50px;">{{albumDetails.albumName}}</h1></span>
     <span><Button class="btn btn-primary"  style="margin-left: 50px;"  (click)="onClickButton()">Add Image</Button></span>
     <div>
         <div *ngIf="imageUploadStatus">
@@ -24,10 +24,22 @@
         <div *ngIf="selectedFile.status === 'fail'" class="alert alert-danger"> Image Upload Failed!</div>
     </div>
 
-    <mat-grid-list cols="4"  style="margin: 50px;">
+    <mat-grid-list cols="4"   [gutterSize]="'20px'" >
     <div *ngFor="let item of imageArray"  style="margin-left: 100px; width: 500px;padding-left: 20px;">
         
-            <mat-grid-tile  style="padding-left: 20px;"> {{ item.key }}</mat-grid-tile>
+            
+        <div style="width: 100%; height: 100%">
+            <mat-grid-tile ><img  style="display:block; height: inherit !important" src={{item.base64Image}} layout-fill/>
+                <mat-grid-tile-footer>{{item.imageFileName}}
+
+                    <button mat-icon-button color="primary"  (click)="deleteImage(item.id)" style="margin-left: 150px;" aria-label="Example icon button with a home icon">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+
+                </mat-grid-tile-footer>
+            </mat-grid-tile>
+                
+            </div>
          
     </div>
 </mat-grid-list>

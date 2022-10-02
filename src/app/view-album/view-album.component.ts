@@ -38,7 +38,7 @@ export class ViewAlbumComponent implements OnInit {
   dataSource : any;
   ngOnInit(): void {
     this.createDataSource();
-    this.dataSource = [...ELEMENT_DATA];
+    //this.dataSource = [...ELEMENT_DATA];
   }
   
   constructor(private router: Router,private dataProvider : DataProviderService,private getAlbum : GetAlbumService,
@@ -55,7 +55,7 @@ export class ViewAlbumComponent implements OnInit {
 
   deleteData(value : any){
     console.log("values",value)
-    this.createAlbum.deleteAlbum(value.id).subscribe((res: any)=>{
+    this.createAlbum.deleteAlbum(value._id).subscribe((res: any)=>{
       this.createDataSource();
     },(err: any)=>{
       console.log("failure",err);
@@ -68,7 +68,12 @@ export class ViewAlbumComponent implements OnInit {
 
   viewPhotos(element:any){
     console.log("element",element)
-    this.dataProvider.setData(element.albumName);
+    let albumDetails ={
+      "albumName": element.albumName,
+      "albumDesc": element.albumDesc,
+       "albumId" : element._id
+    }
+    this.dataProvider.setData(albumDetails);
     this.router.navigate([`${'/view-photo'}`]);
   }
 
